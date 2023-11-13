@@ -7,8 +7,8 @@ import requests
 class Scrapper:
     def __init__(self):
         self.soup = BeautifulSoup()
-        self.categoriesAndSubcategoriesFile = 'categoriesAndSubcategories'
-        self.productsFile = 'products'
+        self.categoriesAndSubcategoriesFile = 'categoriesAndSubcategories.txt'
+        self.productsFile = 'products.txt'
         self.url = ''
         self.current_category = ''
 
@@ -52,12 +52,10 @@ class Scrapper:
         return int(text.split(' ')[1])
 
     def append_categories_to_file(self):
-        categories = self.get_all_content('span', 'sc-1fme39r-4 hkrryw', 'categories')
-        self.current_category = categories[0].text
+        categories = [cat.text for cat in self.get_all_content('span', 'sc-1fme39r-4 hkrryw', 'categories')]
+        self.current_category = categories[0]
         with open(self.categoriesAndSubcategoriesFile, 'a', encoding="UTF-8") as file:
-            for cat in categories:
-                file.write(cat.text + ",")
-            file.write("\n")
+            file.write(','.join(categories) + "\n")
 
     def append_products_to_file(self):
         page_count = scrapper.get_page_count()
@@ -67,15 +65,18 @@ class Scrapper:
             products = scrapper.get_all_content('div', 'sc-1s1zksu-0 dzLiED sc-162ysh3-1 irFnoT', 'products')
             with open(self.productsFile, 'a', encoding="UTF-8") as file:
                 for product in products:
-                    name = product.find('h3', class_='sc-16zrtke-0 kGLNun sc-1yu46qn-9 feSnpB')
-                    file.write(self.current_category + "," + name.text + ",")
-                    attributes = product.find_all('li', 'sc-vb9gxz-2 ZaTQK')
-                    for att in attributes:
-                        file.write(att.text + ",")
                     image = product.find('img')
-                    print(image['src'])
-                    file.write(image['src'])
-                    file.write("\n")
+                    # if image is a svg, product is unavailable, so it's ignored
+                    if image['src'][-4:] != ".svg":
+                        print(image['src'])
+                        name = product.find('h3', class_='sc-16zrtke-0 kGLNun sc-1yu46qn-9 feSnpB')
+                        file.write(self.current_category + "," + name.text + ",")
+                        attributes = [attribute.text for attribute in product.find_all('li', 'sc-vb9gxz-2 ZaTQK')]
+                        file.write(','.join(attributes))
+                        file.write(',' + image['src'])
+                        file.write("\n")
+
+        self.set_soup_from_page(self.get_url_without_php())
 
     def clear_files(self):
         with open(self.categoriesAndSubcategoriesFile, 'w', encoding="UTF-8"):
@@ -93,7 +94,7 @@ if __name__ == "__main__":
     scrapper = Scrapper()
     host = 'https://www.x-kom.pl/'
     paths = ["g-5/c/345-karty-graficzne.html",
-             "g-4/c/1590-smartfony-i-telefony.html",
+             "g-4/c/1663-tablety.html",
              "g-5/c/89-dyski-twarde-hdd-i-ssd.html",
              "g-6/c/15-monitory.html"]
 
