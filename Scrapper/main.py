@@ -10,6 +10,7 @@ class Scrapper:
         self.categoriesAndSubcategoriesFile = 'categoriesAndSubcategories'
         self.productsFile = 'products'
         self.url = ''
+        self.current_category = ''
 
     def set_soup_from_page(self, url):
         self.url = url
@@ -35,7 +36,7 @@ class Scrapper:
         if content:
             return content
         else:
-            print(searching_for + "not found")
+            print(searching_for + "not found in" + self.url)
             sys.exit()
 
     def get_one_content(self, tag, html_class, searching_for):
@@ -43,7 +44,7 @@ class Scrapper:
         if content:
             return content
         else:
-            print(searching_for + "not found")
+            print(searching_for + "not found in" + self.url)
             sys.exit()
 
     def get_page_count(self):
@@ -52,7 +53,8 @@ class Scrapper:
 
     def append_categories_to_file(self):
         categories = self.get_all_content('span', 'sc-1fme39r-4 hkrryw', 'categories')
-        with open(self.categoriesAndSubcategoriesFile, 'a') as file:
+        self.current_category = categories[0].text
+        with open(self.categoriesAndSubcategoriesFile, 'a', encoding="UTF-8") as file:
             for cat in categories:
                 file.write(cat.text + ",")
             file.write("\n")
@@ -63,10 +65,10 @@ class Scrapper:
             page_php = "?page=" + str(page_number + 1)
             self.set_soup_from_page(self.get_url_without_php() + page_php)
             products = scrapper.get_all_content('div', 'sc-1s1zksu-0 dzLiED sc-162ysh3-1 irFnoT', 'products')
-            with open(self.productsFile, 'a') as file:
+            with open(self.productsFile, 'a', encoding="UTF-8") as file:
                 for product in products:
                     name = product.find('h3', class_='sc-16zrtke-0 kGLNun sc-1yu46qn-9 feSnpB')
-                    file.write(name.text + ",")
+                    file.write(self.current_category + "," + name.text + ",")
                     attributes = product.find_all('li', 'sc-vb9gxz-2 ZaTQK')
                     for att in attributes:
                         file.write(att.text + ",")
@@ -76,22 +78,25 @@ class Scrapper:
                     file.write("\n")
 
     def clear_files(self):
-        with open(self.categoriesAndSubcategoriesFile, 'w'):
+        with open(self.categoriesAndSubcategoriesFile, 'w', encoding="UTF-8"):
             pass
-        with open(self.productsFile, 'w'):
+        with open(self.productsFile, 'w', encoding="UTF-8"):
             pass
+
+    def scrape(self, url):
+        self.set_soup_from_page(url)
+        self.append_categories_to_file()
+        self.append_products_to_file()
 
 
 if __name__ == "__main__":
     scrapper = Scrapper()
     host = 'https://www.x-kom.pl/'
-    paths = ['g-5/c/345-karty-graficzne.html',
-             '/g-2/c/161-akcesoria-komputerowe.html',
-             "/g-5/c/89-dyski-twarde-hdd-i-ssd.html"]
-    path = 'g-5/c/345-karty-graficzne.html'
+    paths = ["g-5/c/345-karty-graficzne.html",
+             "g-4/c/1590-smartfony-i-telefony.html",
+             "g-5/c/89-dyski-twarde-hdd-i-ssd.html",
+             "g-6/c/15-monitory.html"]
 
     scrapper.clear_files()
     for path in paths:
-        scrapper.set_soup_from_page(host + path)
-        scrapper.append_categories_to_file()
-        scrapper.append_products_to_file()
+        scrapper.scrape(host + path)
