@@ -13,19 +13,17 @@ class Scrapper:
 
     def set_soup_from_page(self, url):
         self.url = url
-        self.soup = BeautifulSoup(self.get_page_text(url), 'lxml')
+        self.soup = BeautifulSoup(self.get_page_text(), 'lxml')
 
     def get_url_without_php(self):
         return self.url.split('?', 2)[0]
 
-    @staticmethod
-    def get_page_text(url):
-
+    def get_page_text(self):
         headers = {  # header mimicing web browser, so we dont get 403 response code
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                           "Chrome/91.0.4472.124 Safari/537.36"
         }
-        response = requests.get(url, headers=headers)
+        response = requests.get(self.url, headers=headers)
 
         if not response.ok:
             print("Error " + str(response))
@@ -87,9 +85,13 @@ class Scrapper:
 if __name__ == "__main__":
     scrapper = Scrapper()
     host = 'https://www.x-kom.pl/'
+    paths = ['g-5/c/345-karty-graficzne.html',
+             '/g-2/c/161-akcesoria-komputerowe.html',
+             "/g-5/c/89-dyski-twarde-hdd-i-ssd.html"]
     path = 'g-5/c/345-karty-graficzne.html'
-    scrapper.clear_files()
 
-    scrapper.set_soup_from_page(host + path)
-    scrapper.append_categories_to_file()
-    scrapper.append_products_to_file()
+    scrapper.clear_files()
+    for path in paths:
+        scrapper.set_soup_from_page(host + path)
+        scrapper.append_categories_to_file()
+        scrapper.append_products_to_file()
