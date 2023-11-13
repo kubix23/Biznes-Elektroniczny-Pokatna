@@ -2,7 +2,6 @@ import sys
 
 from bs4 import BeautifulSoup
 import requests
-import lxml
 
 
 class Scrapper:
@@ -12,12 +11,8 @@ class Scrapper:
     def set_soup_from_page(self, url):
         self.soup = BeautifulSoup(self.get_page_text(url), 'lxml')
 
-    def write_to_file(self, path, text):
-        with open(path, 'w') as file:
-            for line in text:
-                file.write(line.text + "\n")
-
-    def get_page_text(self, url):
+    @staticmethod
+    def get_page_text(url):
 
         headers = {  # header mimicing web browser, so we dont get 403 response code
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -46,29 +41,43 @@ class Scrapper:
             print(searching_for + "not found")
             sys.exit()
 
+    def get_page_count(self):
+        text = self.get_one_content('span', 'sc-11oikyw-2 fUaLpF', 'page count').text
+        return int(text.split(' ')[1])
+
 
 if __name__ == "__main__":
     scraper = Scrapper()
-    host = "https://www.x-kom.pl/"
-    path = "g-5/c/345-karty-graficzne.html"
+    host = 'https://www.x-kom.pl/'
+    path = 'g-5/c/345-karty-graficzne.html'
+    categoriesAndSubcategoriesFile = 'categoriesAndSubcategories'
+    productsFile = 'products'
 
+    with open(categoriesAndSubcategoriesFile, 'w'):
+        pass
+    with open(productsFile, 'w'):
+        pass
     scraper.set_soup_from_page(host + path)
+    page_count = scraper.get_page_count()
 
-    categories = scraper.get_all_content('span', 'sc-1fme39r-4 hkrryw', 'categories')
-    with open('categoriesAndSubcategories', 'w') as file:
-        for cat in categories:
-            file.write(cat.text + ",")
-        file.write("\n")
-
-    products = scraper.get_all_content('div', 'sc-1s1zksu-0 dzLiED sc-162ysh3-1 irFnoT', 'products')
-    with open('products', 'w') as file:
-        for product in products:
-            name = product.find('h3', class_="sc-16zrtke-0 kGLNun sc-1yu46qn-9 feSnpB")
-            file.write(name.text + ",")
-            attributes = product.find_all('li', 'sc-vb9gxz-2 ZaTQK')
-            for att in attributes:
-                file.write(att.text + ",")
-            image = product.find('img')
-            print(image['src'])
-            file.write(image['src'])
+    for page_number in range(page_count):
+        page_php = "?page=" + str(page_number + 1)
+        scraper.set_soup_from_page(host + path + page_php)
+        categories = scraper.get_all_content('span', 'sc-1fme39r-4 hkrryw', 'categories')
+        with open(categoriesAndSubcategoriesFile, 'a') as file:
+            for cat in categories:
+                file.write(cat.text + ",")
             file.write("\n")
+
+        products = scraper.get_all_content('div', 'sc-1s1zksu-0 dzLiED sc-162ysh3-1 irFnoT', 'products')
+        with open(productsFile, 'a') as file:
+            for product in products:
+                name = product.find('h3', class_='sc-16zrtke-0 kGLNun sc-1yu46qn-9 feSnpB')
+                file.write(name.text + ",")
+                attributes = product.find_all('li', 'sc-vb9gxz-2 ZaTQK')
+                for att in attributes:
+                    file.write(att.text + ",")
+                image = product.find('img')
+                print(image['src'])
+                file.write(image['src'])
+                file.write("\n")
