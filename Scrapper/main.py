@@ -1,15 +1,17 @@
 import sys
+import time
 
 from bs4 import BeautifulSoup
 import requests
 
 
 class Scrapper:
-    def __init__(self):
+    def __init__(self, host):
         self.soup = BeautifulSoup()
         self.categoriesAndSubcategoriesFile = 'categoriesAndSubcategories.txt'
         self.productsFile = 'products.txt'
         self.url = ''
+        self.host = host
         self.current_category = ''
 
     def set_soup_from_page(self, url):
@@ -44,7 +46,7 @@ class Scrapper:
         if content:
             return content
         else:
-            print(searching_for + "not found in" + self.url)
+            print(searching_for + " not found in" + self.url)
             sys.exit()
 
     def get_page_count(self):
@@ -55,26 +57,36 @@ class Scrapper:
         categories = [cat.text for cat in self.get_all_content('span', 'sc-1fme39r-4 hkrryw', 'categories')]
         self.current_category = categories[0]
         with open(self.categoriesAndSubcategoriesFile, 'a', encoding="UTF-8") as file:
-            file.write(','.join(categories) + "\n")
+            file.write(';'.join(categories) + "\n")
+
+    def get_image_from_page_of_product(self, url):
+        image_scrapper = Scrapper(url)
+        image_scrapper.set_soup_from_page(url)
+        span = image_scrapper.get_one_content('span', 'sc-1tblmgq-0 sc-1tblmgq-3 cIswgX sc-jiiyfe-2 jGSlBb', 'image')
+        return span.find('img', class_='sc-1tblmgq-1 fatMoG')['src']
 
     def append_products_to_file(self):
-        page_count = scrapper.get_page_count()
+        page_count = self.get_page_count()
         for page_number in range(page_count):
             page_php = "?page=" + str(page_number + 1)
             self.set_soup_from_page(self.get_url_without_php() + page_php)
-            products = scrapper.get_all_content('div', 'sc-1s1zksu-0 dzLiED sc-162ysh3-1 irFnoT', 'products')
+            products = self.get_all_content('div', 'sc-1s1zksu-0 dzLiED sc-162ysh3-1 irFnoT', 'products')
             with open(self.productsFile, 'a', encoding="UTF-8") as file:
                 for product in products:
-                    image = product.find('img')
+                    is_available = product.find('img')
                     # if image is a svg, product is unavailable, so it's ignored
-                    if image['src'][-4:] != ".svg":
-                        print(image['src'])
+                    if is_available['src'][-4:] != ".svg":
+                        product_url = host + product.find('a')['href'][1:]
+                        image = self.get_image_from_page_of_product(product_url)
                         name = product.find('h3', class_='sc-16zrtke-0 kGLNun sc-1yu46qn-9 feSnpB')
-                        file.write(self.current_category + "," + name.text + ",")
+                        file.write(self.current_category + ";" + name.text + ";")
                         attributes = [attribute.text for attribute in product.find_all('li', 'sc-vb9gxz-2 ZaTQK')]
-                        file.write(','.join(attributes))
-                        file.write(',' + image['src'])
+                        file.write(';'.join(attributes))
+                        file.write(';' + image)
                         file.write("\n")
+
+                        #sleep in case you don't want to send 1000 requests at once
+                        #time.sleep(1)
 
         self.set_soup_from_page(self.get_url_without_php())
 
@@ -91,12 +103,12 @@ class Scrapper:
 
 
 if __name__ == "__main__":
-    scrapper = Scrapper()
     host = 'https://www.x-kom.pl/'
     paths = ["g-5/c/345-karty-graficzne.html",
              "g-4/c/1663-tablety.html",
              "g-5/c/89-dyski-twarde-hdd-i-ssd.html",
              "g-6/c/15-monitory.html"]
+    scrapper = Scrapper(host)
 
     scrapper.clear_files()
     for path in paths:
