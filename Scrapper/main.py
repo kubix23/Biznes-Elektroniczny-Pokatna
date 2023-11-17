@@ -87,7 +87,6 @@ class Scrapper:
 
                         #sleep in case you don't want to send 1000 requests at once
                         #time.sleep(1)
-
         self.set_soup_from_page(self.get_url_without_php())
 
     def clear_files(self):
