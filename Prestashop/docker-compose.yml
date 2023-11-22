@@ -17,7 +17,7 @@ services:
         networks:
             - prestashop
         volumes:
-            - db-data:/var/lib/mysql
+            - ./mysql:/var/lib/mysql:delegated
     
     prestashop:
         image: prestashop/prestashop:1.7.8
