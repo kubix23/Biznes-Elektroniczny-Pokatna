@@ -1,17 +1,16 @@
 import sys
-import time
 
 from bs4 import BeautifulSoup
 import requests
 
 
 class Scrapper:
-    def __init__(self, host):
+    def __init__(self, host_url):
         self.soup = BeautifulSoup()
         self.categoriesAndSubcategoriesFile = 'categoriesAndSubcategories.txt'
         self.productsFile = 'products.txt'
         self.url = ''
-        self.host = host
+        self.host = host_url
         self.current_category = ''
 
     def set_soup_from_page(self, url):
@@ -59,11 +58,16 @@ class Scrapper:
         with open(self.categoriesAndSubcategoriesFile, 'a', encoding="UTF-8") as file:
             file.write(';'.join(categories) + "\n")
 
-    def get_image_from_page_of_product(self, url):
+    @staticmethod
+    def scrape_product_page(url):
         image_scrapper = Scrapper(url)
         image_scrapper.set_soup_from_page(url)
         span = image_scrapper.get_one_content('span', 'sc-1tblmgq-0 sc-1tblmgq-3 cIswgX sc-jiiyfe-2 jGSlBb', 'image')
-        return span.find('img', class_='sc-1tblmgq-1 fatMoG')['src']
+        image = span.find('img', class_='sc-1tblmgq-1 fatMoG')['src']
+        page_title = image_scrapper.soup.find('title')
+        subcategory = page_title.text.split(" - ")[-3]
+
+        return image, subcategory
 
     def append_products_to_file(self):
         page_count = self.get_page_count()
@@ -77,16 +81,13 @@ class Scrapper:
                     # if image is a svg, product is unavailable, so it's ignored
                     if is_available['src'][-4:] != ".svg":
                         product_url = host + product.find('a')['href'][1:]
-                        image = self.get_image_from_page_of_product(product_url)
+                        image, subcategory = self.scrape_product_page(product_url)
                         name = product.find('h3', class_='sc-16zrtke-0 kGLNun sc-1yu46qn-9 feSnpB')
-                        file.write(self.current_category + ";" + name.text + ";")
+                        file.write(self.current_category + ";" + subcategory + ";" + name.text + ";")
                         attributes = [attribute.text for attribute in product.find_all('li', 'sc-vb9gxz-2 ZaTQK')]
                         file.write(';'.join(attributes))
                         file.write(';' + image)
                         file.write("\n")
-
-                        #sleep in case you don't want to send 1000 requests at once
-                        #time.sleep(1)
         self.set_soup_from_page(self.get_url_without_php())
 
     def clear_files(self):
