@@ -6,8 +6,8 @@ import requests
 class Scrapper:
     def __init__(self, host_url):
         self.soup = BeautifulSoup()
-        self.categoriesAndSubcategoriesFile = 'categoriesAndSubcategories.txt'
-        self.productsFile = 'products.txt'
+        self.categoriesAndSubcategoriesFile = '../ScrapperResults/categoriesAndSubcategories.txt'
+        self.productsFile = '../ScrapperResults/products.txt'
         self.url = ''
         self.host = host_url
         self.current_category = ''
@@ -29,7 +29,6 @@ class Scrapper:
                           "Chrome/91.0.4472.124 Safari/537.36"
         }
         response = requests.get(self.url, headers=headers)
-
         if not response.ok:
             print("Error " + str(response))
             sys.exit()
