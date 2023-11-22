@@ -3,7 +3,6 @@ import sys
 from bs4 import BeautifulSoup
 import requests
 
-
 class Scrapper:
     def __init__(self, host_url):
         self.soup = BeautifulSoup()
@@ -12,6 +11,10 @@ class Scrapper:
         self.url = ''
         self.host = host_url
         self.current_category = ''
+        self.product_page_scrapper = None
+
+    def set_host(self, host_url):
+        self.host = host_url
 
     def set_soup_from_page(self, url):
         self.url = url
@@ -59,36 +62,38 @@ class Scrapper:
         with open(self.categoriesAndSubcategoriesFile, 'a', encoding="UTF-8") as file:
             file.write(';'.join(categories) + "\n")
 
-    @staticmethod
-    def scrape_product_page(url):
-        image_scrapper = Scrapper(url)
-        image_scrapper.set_soup_from_page(url)
-        span = image_scrapper.get_one_content('span', 'sc-1tblmgq-0 sc-1tblmgq-3 cIswgX sc-jiiyfe-2 jGSlBb', 'image')
+    def scrape_product_page(self, url):
+        self.product_page_scrapper.set_host(url)
+        self.product_page_scrapper.set_soup_from_page(url)
+        span = self.product_page_scrapper.get_one_content('span',
+                                                          'sc-1tblmgq-0 sc-1tblmgq-3 cIswgX sc-jiiyfe-2 jGSlBb',
+                                                          'image')
         image = span.find('img', class_='sc-1tblmgq-1 fatMoG')['src']
-        page_title = image_scrapper.soup.find('title')
+        page_title = self.product_page_scrapper.soup.find('title')
         subcategory = page_title.text.split(" - ")[-3]
-
         return image, subcategory
 
     def append_products_to_file(self):
         page_count = self.get_page_count()
-        for page_number in range(page_count):
-            page_php = "?page=" + str(page_number + 1)
-            self.set_soup_from_page(self.get_url_without_php() + page_php)
-            products = self.get_all_content('div', 'sc-1s1zksu-0 dzLiED sc-162ysh3-1 irFnoT', 'products')
-            with open(self.productsFile, 'a', encoding="UTF-8") as file:
+        self.product_page_scrapper = Scrapper("")
+
+        with open(self.productsFile, 'a', encoding="UTF-8") as file:
+            for page_number in range(page_count):
+                page_php = "?page=" + str(page_number + 1)
+                self.set_soup_from_page(self.get_url_without_php() + page_php)
+                products = self.get_all_content('div', 'sc-1s1zksu-0 dzLiED sc-162ysh3-1 irFnoT', 'products')
                 for product in products:
-                    is_available = product.find('img')
+                    small_image = product.find('img')['src']
+                    is_available = small_image[-4:] != ".svg"
                     # if image is a svg, product is unavailable, so it's ignored
-                    if is_available['src'][-4:] != ".svg":
+                    if is_available:
                         product_url = host + product.find('a')['href'][1:]
                         image, subcategory = self.scrape_product_page(product_url)
                         name = product.find('h3', class_='sc-16zrtke-0 kGLNun sc-1yu46qn-9 feSnpB')
-                        file.write(self.current_category + ";" + subcategory + ";" + name.text + ";")
                         attributes = [attribute.text for attribute in product.find_all('li', 'sc-vb9gxz-2 ZaTQK')]
-                        file.write(';'.join(attributes))
-                        file.write(';' + image)
-                        file.write("\n")
+                        file.write(self.current_category + ";" + subcategory + ";" + name.text + ";" +
+                                   ';'.join(attributes) + ';' + small_image + ';' + image + "\n")
+
         self.set_soup_from_page(self.get_url_without_php())
 
     def clear_files(self):
@@ -105,10 +110,10 @@ class Scrapper:
 
 if __name__ == "__main__":
     host = 'https://www.x-kom.pl/'
-    paths = ["g-5/c/345-karty-graficzne.html",
+    paths = ["g-6/c/4051-drukarki-ze-skanerem.html",
              "g-4/c/1663-tablety.html",
              "g-5/c/14-plyty-glowne.html",
-             "g-8/c/1117-telewizory.html"]
+             "g-5/c/345-karty-graficzne.html"]
     scrapper = Scrapper(host)
 
     scrapper.clear_files()
