@@ -1,4 +1,4 @@
-Karty graficzne,Karty graficzne NVIDIA,Karty graficzne AMD,Karty graficzne Intel
-Tablety,Tablety 14,6”,Tablety 12",Tablety 13",Tablety 11'',Tablety 10",Tablety 9",Tablety 8",Tablety 7"
-Dyski twarde HDD i SSD,Dyski SSD,Dyski HDD,Dyski zewnętrzne SSD,Dyski zewnętrzne HDD,Dyski do konsol,Dyski sieciowe NAS
-Monitory,Monitory LED 32" i większe,Monitory LED 27" (26,5"-28,4"),Monitory LED 24" (23,5"-26,4"),Monitory LED 22" (21,5"-23,4"),Monitory LED 21" i mniejsze
+Karty graficzne;Karty graficzne NVIDIA;Karty graficzne AMD;Karty graficzne Intel
+Tablety;Tablety 14,6”;Tablety 12";Tablety 13";Tablety 11'';Tablety 10";Tablety 9";Tablety 8";Tablety 7"
+Płyty główne;Płyty główne Socket 1700;Płyty główne socket 1200;Płyty główne Socket 1151;Płyty główne Socket AM5;Płyty główne Socket AM4;Płyty główne serwerowe
+Telewizory;Telewizory 80" i większe;Telewizory 70” - 79";Telewizory 60” - 69";Telewizory 55" - 59";Telewizory 50" - 54";Telewizory 44" - 49";Telewizory 33" - 43";Telewizory 32" i mniejsze
