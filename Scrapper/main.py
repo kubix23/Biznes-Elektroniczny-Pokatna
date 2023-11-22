@@ -55,6 +55,7 @@ class Scrapper:
     def append_categories_to_file(self):
         categories = [cat.text for cat in self.get_all_content('span', 'sc-1fme39r-4 hkrryw', 'categories')]
         self.current_category = categories[0]
+        print(self.current_category)
         with open(self.categoriesAndSubcategoriesFile, 'a', encoding="UTF-8") as file:
             file.write(';'.join(categories) + "\n")
 
@@ -106,8 +107,8 @@ if __name__ == "__main__":
     host = 'https://www.x-kom.pl/'
     paths = ["g-5/c/345-karty-graficzne.html",
              "g-4/c/1663-tablety.html",
-             "g-5/c/89-dyski-twarde-hdd-i-ssd.html",
-             "g-6/c/15-monitory.html"]
+             "g-5/c/14-plyty-glowne.html",
+             "g-8/c/1117-telewizory.html"]
     scrapper = Scrapper(host)
 
     scrapper.clear_files()
