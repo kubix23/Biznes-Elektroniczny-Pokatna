@@ -1,5 +1,5 @@
 
-# Biznes-Elektroniczny-Pokatna
+<h1 style="font-size: 40px">Biznes-Elektroniczny-Pokatna</h1>
 
   
 
@@ -17,7 +17,7 @@ Jeżeli używany jest linux można pominąć etap konfiguracji WSL
 
   
 
-## Konfiguracja WSL
+# Konfiguracja WSL
 
 - [Docker](https://docs.docker.com/desktop/wsl/)
 
@@ -42,19 +42,19 @@ Powyżej wymienione są dwa linki do poradnika jak to zrobić, ale poniżej pokr
 5. Ustawiamy naszą dystrybucję jako domyślną `wsl --set-default Ubuntu`
 
 6. W **Settings** > **Resources** > **WSL Integration** ustawiamy naszą dystrybucję
-
-![](docker.png)
-
   
 
-## Uruchomienie Prestashop
+# Uruchomienie Prestashop
 
-  
-
-Po pobraniu plików źródłowych wystarczy umieścić je w dowolnym (w przypadku WSL, to w dowolnym, ale na WSL) folderze. Następnie znajdując się w terminalu w wybranym folderze nadajemy uprawnienia 777 wszystkim plikom i uruchamiamy `docker-compose up` i dzieje się magia. Uruchomi na się plik konfiguracyjny _docker-compose.yml_, który zainstaluje wymagane kontenery. Powinno to zająć około minuty, po tym czasie będzie możliwość wejścia w stronę sklepu.
-**Uwaga doatkowy krok przy pierwszym uruchomieniu:**
-Po uruchomieniu sklepu konieczne jest cofnięcie zmian, aby być 1:1 z stanem jaki występuje na GitHub. Najpierw ustawiamy uprawnienia plików na 777, następnie pomocne może być skorzystanie z polecenia `Git reset --hard`. 
+Po pobraniu plików źródłowych wystarczy umieścić je w dowolnym (w przypadku WSL, to w dowolnym, ale na WSL) folderze. Następnie znajdując się w terminalu w wybranym folderze nadajemy uprawnienia 777 wszystkim plikom `sudo chmod 755 -R [folder]` i uruchamiamy `docker-compose up` i dzieje się magia. Uruchomi na się plik konfiguracyjny _docker-compose.yml_, który zainstaluje wymagane kontenery. Powinno to zająć około minuty, po tym czasie będzie możliwość wejścia w stronę sklepu.
+**Uwaga doatkowy krok do pierwszej instalacji Prestashop:**
+Po uruchomieniu sklepu konieczne jest cofnięcie zmian, aby być 1:1 z stanem jaki występuje na GitHub. Najpierw wyłączmy włączone kontenery dockera. Następnie ustawiamy uprawnienia plików na 777, potem przywracamy ustawienia gita korzystając z polecenia `Git reset --hard`. 
 Od tego momentu można korzystać z standardowych komend do uruchamiania i wyłączania dockera.
+
+## Przykładowa sekwencja instalacji
+1. 
+
+## Komendy
 
 - Uruchamianie: `docker-compose up`
 
@@ -75,3 +75,15 @@ Od tego momentu można korzystać z standardowych komend do uruchamiania i wył�
 - [Panelu administratora](http://localhost:8080/admin-dev)
 
 - [PhpMyAdmin]( http://localhost:8081)
+
+
+## Wybrane błędy
+
+1. `prestashop exited with code 1`  
+Jest to najczęściej spowodowane nie ustawieniem uprawnień 777 wszystkim plikom projektu. Często później wystąpi błąd 42
+2. `prestashop exited with code 42`  
+Powodem jest przerwanie inicjalizacji/instalacji Prestashop, może być to spowodowane ctrl+c, lub innymi czynnikami uniemożliwiającymi Prestashop ukończenie tego procesu.
+3. Brak zmian na stronie sklepu  
+Nie wykonano procesu związanego z pierwszą instalacją.
+4. Błąd z dostępem do /var/www/...
+Nie wyłączono poprzednio otwrtych kontenerów poleceniem `docker-compose down`
