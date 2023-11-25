@@ -48,11 +48,22 @@ Powyżej wymienione są dwa linki do poradnika jak to zrobić, ale poniżej pokr
 
 Po pobraniu plików źródłowych wystarczy umieścić je w dowolnym (w przypadku WSL, to w dowolnym, ale na WSL) folderze. Następnie znajdując się w terminalu w wybranym folderze nadajemy uprawnienia 777 wszystkim plikom `sudo chmod 755 -R [folder]` i uruchamiamy `docker-compose up` i dzieje się magia. Uruchomi na się plik konfiguracyjny _docker-compose.yml_, który zainstaluje wymagane kontenery. Powinno to zająć około minuty, po tym czasie będzie możliwość wejścia w stronę sklepu.
 **Uwaga doatkowy krok do pierwszej instalacji Prestashop:**
-Po uruchomieniu sklepu konieczne jest cofnięcie zmian, aby być 1:1 z stanem jaki występuje na GitHub. Najpierw wyłączmy włączone kontenery dockera. Następnie ustawiamy uprawnienia plików na 777, potem przywracamy ustawienia gita korzystając z polecenia `Git reset --hard`. 
+Po uruchomieniu sklepu konieczne jest cofnięcie zmian, aby być 1:1 z stanem jaki występuje na GitHub. Najpierw wyłączmy włączone kontenery dockera. Następnie ustawiamy uprawnienia plików na 777, potem przywracamy ustawienia gita korzystając z polecenia `git reset --hard`. 
 Od tego momentu można korzystać z standardowych komend do uruchamiania i wyłączania dockera.
 
 ## Przykładowa sekwencja instalacji
-1. 
+1. `git clone https://github.com/kubix23/Biznes-Elektroniczny-Pokatna.git BiznesElektronicznyPokatna`
+2. `cd BiznesElektronicznyPokatna`
+3. `git checkout 'prestashop'`
+4. `sudo chmod 777 -R Prestashop/`
+5. `cd Prestashop/`
+6. `docker-compose up`
+7. ctrl + c
+8. `docker-compose down`
+9. `sudo chmod 777 -R .`
+10. `git reset --hard`
+11. `docker-compose up`
+12. Prestashop już działa
 
 ## Komendy
 
@@ -85,5 +96,5 @@ Jest to najczęściej spowodowane nie ustawieniem uprawnień 777 wszystkim pliko
 Powodem jest przerwanie inicjalizacji/instalacji Prestashop, może być to spowodowane ctrl+c, lub innymi czynnikami uniemożliwiającymi Prestashop ukończenie tego procesu.
 3. Brak zmian na stronie sklepu  
 Nie wykonano procesu związanego z pierwszą instalacją.
-4. Błąd z dostępem do /var/www/...
+4. Błąd z dostępem do /var/www/...  
 Nie wyłączono poprzednio otwrtych kontenerów poleceniem `docker-compose down`
