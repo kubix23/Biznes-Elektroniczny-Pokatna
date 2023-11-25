@@ -51,10 +51,10 @@ Powyżej wymienione są dwa linki do poradnika jak to zrobić, ale poniżej pokr
 
   
 
-Po pobraniu plików źródłowych wystarczy umieścić je w dowolnym (w przypadku WSL, to w dowolnym, ale na WSL) folderze. Następnie znajdując się w terminalu w wybranym folderze nadajemy uprawnienia 777 wszytkim plikom i uruchamiamy `docker-compose up` i dzieje się magia. Uruchomi na się plik konfiguracyjny _docker-compose.yml_, który zainstaluje wymagane kontenery. Powinno to zająć około minuty, po tym czasie będzie możliwość wejścia w stronę sklepu.
+Po pobraniu plików źródłowych wystarczy umieścić je w dowolnym (w przypadku WSL, to w dowolnym, ale na WSL) folderze. Następnie znajdując się w terminalu w wybranym folderze nadajemy uprawnienia 777 wszystkim plikom i uruchamiamy `docker-compose up` i dzieje się magia. Uruchomi na się plik konfiguracyjny _docker-compose.yml_, który zainstaluje wymagane kontenery. Powinno to zająć około minuty, po tym czasie będzie możliwość wejścia w stronę sklepu.
 **Uwaga doatkowy krok przy pierwszym uruchomieniu:**
 Po uruchomieniu sklepu konieczne jest cofnięcie zmian, aby być 1:1 z stanem jaki występuje na GitHub. Najpierw ustawiamy uprawnienia plików na 777, następnie pomocne może być skorzystanie z polecenia `Git reset --hard`. 
-Od tego momentu można wykorzystać z standardowych komend do uruchamiania i wyłączania dockera.
+Od tego momentu można korzystać z standardowych komend do uruchamiania i wyłączania dockera.
 
 - Uruchamianie: `docker-compose up`
 
