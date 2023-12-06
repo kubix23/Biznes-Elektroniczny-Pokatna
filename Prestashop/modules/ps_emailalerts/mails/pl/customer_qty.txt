@@ -4,7 +4,7 @@
 
 Cześć,
 
-{product} is now available.
+{product} jest już dostępny.
 
 Dobre wieści, ten produkt jest już dostępny!
 
