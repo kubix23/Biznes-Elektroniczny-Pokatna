@@ -57,17 +57,39 @@ class Tester:
             self.driver.find_element(by=By.CLASS_NAME, value="add-to-cart").click()
             self.driver.back()
 
+    def register(self):
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, "Zaloguj").click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, "Nie masz").click()
+        self.driver.find_element(By.CLASS_NAME, "custom-radio").click()
+        self.driver.find_element(By.NAME, "firstname").send_keys("Dominus")
+        self.driver.find_element(By.NAME, "lastname").send_keys("Faustinus")
+
+        email_number = random.randint(0,99999999)
+        self.driver.find_element(By.NAME, "email").send_keys("magos_dominus@omnissiah.mrs-" + str(email_number))
+        self.driver.find_element(By.NAME, "password").send_keys("011000010110010001101101011010010110111000001010")
+        self.driver.find_element(By.NAME, "birthday").send_keys("2018-11-15")
+
+        checkboxes = self.driver.find_elements(By.CLASS_NAME, "custom-checkbox")
+        for box in checkboxes:
+            box.click()
+        self.driver.find_element(By.CLASS_NAME, "form-control-submit").click()
+
+
+
 
 if __name__ == "__main__":
     host = 'http://localhost:8080/index.php'
     tester = Tester(host)
     # test a
-    tester.add_to_cart_test("Karty graficzne AMD")
+    # tester.add_to_cart_test("Karty graficzne AMD")
     # tester.add_to_cart_test("Płyty główne Socket AM4")
 
     # test b
     #tester.search_test()
 
     # test c
-    tester.remove_3_from_cart()
+    # tester.remove_3_from_cart()
+
+    # test d
+    tester.register()
     tester.driver.quit()
