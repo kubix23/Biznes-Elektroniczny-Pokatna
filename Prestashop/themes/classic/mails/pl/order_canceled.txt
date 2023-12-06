@@ -2,15 +2,15 @@
 
 {shop_url}
 
-Hi {firstname} {lastname},
+Cześć {firstname} {lastname},
 
-Order ID {order_name} - Order canceled
+ID zamówienia {order_name} - Zamówienie anulowane
 
-Your order with the reference {order_name} from {shop_name} has been canceled by the merchant.
+Twoje zamówienie o numerze {order_name} z {shop_name} zostało anulowane przez sprzedawcę.
 
-Go to your customer account to learn more about it.
+Przejdź do swojego konta klienta, aby dowiedzieć się więcej na ten temat.
 
-If you have a guest account, you can follow your order via the [Guest Tracking]({guest_tracking_url}) section on our shop.
+Jeśli masz konto gościa, możesz śledzić swoje zamówienie za pośrednictwem sekcji [Śledzenie zamówień gości]({guest_tracking_url}) w naszym sklepie.
 
 [{shop_name}]({shop_url})
 

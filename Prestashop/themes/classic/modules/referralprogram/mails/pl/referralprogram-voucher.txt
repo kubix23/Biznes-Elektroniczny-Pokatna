@@ -2,14 +2,14 @@
 
 {shop_url}
 
-Hi {firstname} {lastname},
+Cześć {firstname} {lastname},
 
-Sponsorship Program
+Program sponsorski
 
-We have created a voucher in your name for referring a friend.
-Here is the code of your voucher: {voucher_num}, with an amount of {voucher_num}
+Utworzyliśmy kupon w Twoim imieniu za polecenie znajomego.
+Oto kod kuponu: {voucher_num}, z kwotą {voucher_num}
 
-Simply copy/paste this code during the payment process for your next order.
+Wystarczy skopiować/wkleić ten kod podczas procesu płatności za następne zamówienie.
 
 [{shop_name}]({shop_url})
 

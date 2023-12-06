@@ -2,13 +2,13 @@
 
 {shop_url}
 
-Hi {firstname} {lastname},
+Cześć {firstname} {lastname},
 
-Order ID {order_name} - Credit slip
+ID zamówienia {order_name} - Odcinek kredytowy
 
-A credit slip has been generated in your name for order with the reference {order_name}.
+Dla zamówienia o numerze {order_name} został wygenerowany odcinek kredytowy.
 
-Review this credit slip and download your invoice on our shop, go to the [Credit slips]({history_url}) section of your customer account.
+Zapoznaj się z tym odcinkiem kredytowym i pobierz fakturę w naszym sklepie, przejdź do sekcji [Odcinki kredytowe]({history_url}) na swoim koncie klienta. 
 
 [{shop_name}]({shop_url})
 

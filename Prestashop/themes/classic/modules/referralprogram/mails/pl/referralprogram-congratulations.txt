@@ -2,13 +2,13 @@
 
 {shop_url}
 
-Congratulations!
+Gratulacje!
 
-Your referred friend {sponsored_firstname} {sponsored_lastname} has placed his/her first order on [{shop_name}]({shop_url})!
+Twój polecony znajomy {sponsored_firstname} {sponsored_lastname} złożył swoje pierwsze zamówienie w [{shop_name}]({shop_url})!
 
-We are pleased to offer you a voucher worth {discount_display} (VOUCHER # {discount_name}) that you can use on your next order.
+Mamy przyjemność zaoferować kupon o wartości {discount_display} (VOUCHER # {discount_name}) który można wykorzystać przy następnym zamówieniu.
 
-Best regards,
+Pozdrawiam,
 
 [{shop_name}]({shop_url})
 

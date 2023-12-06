@@ -2,17 +2,17 @@
 
 {shop_url}
 
-Hi {firstname} {lastname},
+Cześć {firstname} {lastname},
 
-Order ID {order_name} - Payment error
+ID zamówienia {order_name} - Błąd płatności
 
-We have encountered an error while processing your payment for your order with the reference {order_name} from {shop_name}. Please contact us as soon as possible.
+Napotkaliśmy błąd podczas przetwarzania płatności za zamówienie o numerze {order_name} z {shop_name}. Prosimy o jak najszybszy kontakt.
 
-You can expect delivery as soon as your payment is received.
+Możesz spodziewać się dostawy natychmiast po otrzymaniu płatności.
 
-Follow your order and download your invoice on our shop, go to the [Order history and details]({history_url}) section of your customer account.
+Po złożeniu zamówienia i pobraniu faktury w naszym sklepie przejdź do sekcji [Historia zamówień i szczegóły]({history_url}) na swoim koncie klienta.
 
-If you have a guest account, you can follow your order via the [Guest Tracking]({guest_tracking_url}) section on our shop.
+Jeśli masz konto gościa, możesz śledzić swoje zamówienie za pośrednictwem sekcji [Śledzenie zamówień gości]({guest_tracking_url}) w naszym sklepie.
 
 [{shop_name}]({shop_url})
 

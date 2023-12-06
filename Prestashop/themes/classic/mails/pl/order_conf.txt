@@ -2,43 +2,43 @@
 
 {shop_url}
 
-Hi {firstname} {lastname},
+Cześć {firstname} {lastname},
 
-Thank you for shopping on {shop_name}!
+Dziękujemy za zakupy w {shop_name}!
 
-Order details
+Szczegóły zamówienia
 
-Order: {order_name} Placed on {date}
+Zamówienie: {order_name} Złożone {date}
 
-Payment: {payment}
+Płatność:: {payment}
 
-Reference	Product	Unit price	Quantity	Total price  {products_txt} {discounts_txt}
-Products	{total_products}
-Discounts	{total_discounts}
-Gift-wrapping	{total_wrapping}
-Shipping	{total_shipping}
-Including total tax	{total_tax_paid}
-Total paid	{total_paid}
+Referencja	Produkt	Cena jednostki	Ilość	Cena całkowita  {products_txt} {discounts_txt}
+Produkty	{total_products}
+Zniżki	{total_discounts}
+Opakowanie prezentów	{total_wrapping}
+Wysyłka	{total_shipping}
+W tym całkowity podatek	{total_tax_paid}
+Zapłacono ogółem	{total_paid}
 
-Shipping
+Wysyłka
 
-Carrier: {carrier}
+Przewoźnik: {carrier}
 
-Payment: {payment}
+Płatność: {payment}
 
-Recycled packaging: {recycled_packaging_label}
+Opakowania z recyklingu: {recycled_packaging_label}
 
-Delivery address
+Adres dostawy
 
 {delivery_block_txt}
 
-Billing address
+Adres rozliczeniowy
 
 {invoice_block_txt}
 
-Follow your order and download your invoice on our shop, go to the [Order history and details]({history_url}) section of your customer account.
+Po złożeniu zamówienia i pobraniu faktury w naszym sklepie przejdź do sekcji [Historia zamówień i szczegóły]({history_url}) na swoim koncie klienta.
 
-If you have a guest account, you can follow your order via the [Guest Tracking]({guest_tracking_url}) section on our shop.
+Jeśli masz konto gościa, możesz śledzić swoje zamówienie za pośrednictwem sekcji [Śledzenie zamówień gości]({guest_tracking_url}) w naszym sklepie.
 
 [{shop_name}]({shop_url})
 

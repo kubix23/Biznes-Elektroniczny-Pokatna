@@ -2,19 +2,19 @@
 
 {shop_url}
 
-Hi {firstname} {lastname},
+Cześć {firstname} {lastname},
 
-Thank you for your order with the reference {order_name} from {shop_name}
+Dziękujemy za złożenie zamówienia o numerze {order_name} w {shop_name}
 
-Product(s) to download
+Produkt(y) do pobrania
 
-You have {nbProducts} product(s) now available for download using the following link(s):
+Masz teraz {nbProducts} produkt(y) dostępny(e) do pobrania za pomocą następującego(ych) linku(ów):
 
 {virtualProductsTxt}
 
-Follow your order and download your invoice on our shop, go to the [Order history and details]({history_url}) section of your customer account.
+Po złożeniu zamówienia i pobraniu faktury w naszym sklepie przejdź do sekcji [Historia zamówień i szczegóły]({history_url}) na swoim koncie klienta.
 
-If you have a guest account, you can follow your order via the [Guest Tracking]({guest_tracking_url}) section on our shop.
+Jeśli masz konto gościa, możesz śledzić swoje zamówienie za pośrednictwem sekcji [ Śledzenie zamówień gości]({guest_tracking_url}) w naszym sklepie.
 
 [{shop_name}]({shop_url})
 

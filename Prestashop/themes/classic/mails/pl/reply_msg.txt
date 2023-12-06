@@ -2,11 +2,11 @@
 
 {shop_url}
 
-Hi {firstname} {lastname},
+Cześć {firstname} {lastname},
 
 {reply}
 
-Please do not reply directly to this email, we will not receive it. In order to reply, click on the following link: {link}
+Nie odpowiadaj bezpośrednio na tę wiadomość e-mail, ponieważ jej nie otrzymamy. Aby odpowiedzieć, kliknij poniższy link: {link}
 
 [{shop_name}]({shop_url})
 

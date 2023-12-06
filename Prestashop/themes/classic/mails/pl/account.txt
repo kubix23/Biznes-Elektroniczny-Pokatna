@@ -2,27 +2,27 @@
 
 {shop_url}
 
-Hi {firstname} {lastname},
+Cześć {firstname} {lastname},
 
-Thank you for creating a customer account at {shop_name}.
+Dziękujemy za utworzenie konta klienta w {shop_name}.
 
-Your login details on {shop_name}
+Dane logowania do {shop_name}
 
-Here are your login details:
+Oto dane logowania:
 
-Email address: {email}
+Adres e-mail:{email}
 
-Important Security Tips:
+Ważne wskazówki dotyczące bezpieczeństwa:
 
-1. Always keep your account details safe.
+1. Zawsze przechowuj dane swojego konta w bezpiecznym miejscu.
 
-2. Never disclose your login details to anyone.
+2. Nigdy nie ujawniaj nikomu swoich danych logowania.
 
-3. Change your password regularly.
+3. Regularnie zmieniaj hasło.
 
-4. Should you suspect someone is using your account illegally, please notify us immediately.
+4. Jeśli podejrzewasz, że ktoś nielegalnie korzysta z Twojego konta, natychmiast nas o tym powiadom.
 
-You can now place orders on our shop: [{shop_name}]({shop_url})
+Można już składać zamówienia w naszym sklepie: [{shop_name}]({shop_url})
 
 [{shop_name}]({shop_url})
 

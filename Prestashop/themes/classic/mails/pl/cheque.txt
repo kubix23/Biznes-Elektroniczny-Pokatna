@@ -2,27 +2,27 @@
 
 {shop_url}
 
-Hi {firstname} {lastname},
+Cześć {firstname} {lastname},
 
-Thank you for shopping with {shop_name}!
+Dziękujemy za zakupy w {shop_name}!
 
-Order ID {order_name} - Awaiting payment by check
+ID zamówienia {order_name} - Oczekuje na płatność czekiem
 
-Your order with the reference {order_name} has been placed successfully. You can expect delivery as soon as your payment is received.
+Twoje zamówienie o numerze {order_name} zostało pomyślnie złożone. Możesz spodziewać się dostawy natychmiast po otrzymaniu płatności.
 
-Payment method: check
+Metoda płatności: czek
 
-You have decided to pay by bank check. Here is the information you need for your check:
+Zdecydowałeś się zapłacić czekiem bankowym. Oto informacje potrzebne do wystawienia czeku:
 
-Amount:  {total_paid}
+Kwota: {total_paid}
 
-Payable to the order of:  {check_name}
+Płatne na rzecz: {check_name}
 
-Please mail your check to:  {check_address_html}
+Prosimy o przesłanie czeku na adres: {check_address_html}
 
-Follow your order and download your invoice on our shop, go to the [Order history and details]({history_url}) section of your customer account.
+Po złożeniu zamówienia i pobraniu faktury w naszym sklepie przejdź do sekcji [Historia zamówień i szczegóły]({history_url}) na swoim koncie klienta.
 
-If you have a guest account, you can follow your order via the [Guest Tracking]({guest_tracking_url}) section on our shop.
+Jeśli masz konto gościa, możesz śledzić swoje zamówienie za pośrednictwem sekcji [ Śledzenie zamówień gości]({guest_tracking_url}) w naszym sklepie.
 
 [{shop_name}]({shop_url})
 
