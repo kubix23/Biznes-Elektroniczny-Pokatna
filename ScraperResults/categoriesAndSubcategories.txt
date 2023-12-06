@@ -1,4 +1,4 @@
 Drukarki ze skanerem;Urządzenia wiel. laser. kolor;Urządzenia wiel. laserowe;Urządzenia wiel. atramentowe
 Tablety;Tablety 14,6”;Tablety 12";Tablety 13";Tablety 11'';Tablety 10";Tablety 9";Tablety 8";Tablety 7"
-Płyty główne;Płyty główne Socket 1700;Płyty główne socket 1200;Płyty główne Socket 1151;Płyty główne Socket AM5;Płyty główne Socket AM4;Płyty główne serwerowe
+Płyty główne;Płyty główne Socket 1700;Płyty główne socket 1200;Płyty główne Socket 1151;Płyty główne Socket AM5;Płyty główne Socket AM4;Płyty główne Socket sTRX4;Płyty główne serwerowe
 Karty graficzne;Karty graficzne NVIDIA;Karty graficzne AMD;Karty graficzne Intel

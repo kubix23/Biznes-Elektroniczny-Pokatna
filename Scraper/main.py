@@ -9,6 +9,7 @@ class Scraper:
         self.soup = BeautifulSoup()
         self.categoriesAndSubcategoriesFile = '../ScraperResults/categoriesAndSubcategories.txt'
         self.productsFile = '../ScraperResults/products.txt'
+        self.descFile = '../ScraperResults/desc.txt'
         self.url = ''
         self.host = host_url
         self.current_category = ''
@@ -74,42 +75,46 @@ class Scraper:
         subcategory = page_title.text.split(" - ")[-3]
         desc_section = self.product_page_scraper.soup.find('section',class_='product-description content product-page')
         try:
-            desc_candidate_1 = desc_section.find_all('p')[1].text
-            desc_candidate_2 = desc_section.find_all('p')[2].text
-            desc_candidate_3 = desc_section.find_all('p')[3].text
-            desc = desc_candidate_1
-            if len(desc_candidate_2.strip()) > len(desc.strip()):
-                desc = desc_candidate_2
-            if len(desc_candidate_3.strip()) > len(desc.strip()):
-                desc = desc_candidate_3
-            short_desc = desc.split('.')[0]
+            desc_candidate_1 = desc_section.find_all('p')[2].text
+            desc_candidate_2 = desc_section.find_all('p')[3].text
+            desc_candidate_3 = desc_section.find_all('p')[4].text
+            desc_candidate_4 = desc_section.find_all('p')[5].text
+            desc = desc_candidate_1 + " " + desc_candidate_2 + " " + desc_candidate_3 + " " + desc_candidate_4
         except:
-            desc = "Brak opisu na stronie x-kom"
-            short_desc = desc
+            try:
+                desc_candidate_1 = desc_section.find_all('p')[0].text
+                desc_candidate_2 = desc_section.find_all('p')[1].text
+                desc_candidate_3 = desc_section.find_all('p')[2].text
+                desc = desc_candidate_1 + " " + desc_candidate_2 + " " + desc_candidate_3
+            except:
+                desc = "Brak opisu na stronie x-kom"
+
         print(desc)
         print("-------")
-        return image, subcategory, desc, short_desc
+        return image, subcategory, desc
 
     def append_products_to_file(self):
         page_count = self.get_page_count()
         self.product_page_scraper = Scraper("")
 
         with open(self.productsFile, 'a', encoding="UTF-8") as file:
-            for page_number in range(page_count):
-                page_php = "?page=" + str(page_number + 1)
-                self.set_soup_from_page(self.get_url_without_php() + page_php)
-                products = self.get_all_content('div', 'sc-1s1zksu-0 dzLiED sc-162ysh3-1 irFnoT', 'products')
-                for product in products:
-                    small_image = product.find('img')['src']
-                    is_available = small_image[-4:] != ".svg"
-                    # if image is a svg, product is unavailable, so it's ignored
-                    if is_available:
-                        product_url = host + product.find('a')['href'][1:]
-                        image, subcategory, desc, short_desc = self.scrape_product_page(product_url)
-                        name = product.find('h3', class_='sc-16zrtke-0 kGLNun sc-1yu46qn-9 feSnpB')
-                        attributes = [attribute.text for attribute in product.find_all('li', 'sc-vb9gxz-2 ZaTQK')]
-                        file.write(self.current_category + ";" + subcategory + ";" + name.text + ";" +
-                                   ';'.join(attributes) + ';' + small_image + ';' + image + ';' + desc + ';' + short_desc + "\n")
+            with open(self.descFile, 'a', encoding="UTF-8") as file2:
+                for page_number in range(page_count):
+                    page_php = "?page=" + str(page_number + 1)
+                    self.set_soup_from_page(self.get_url_without_php() + page_php)
+                    products = self.get_all_content('div', 'sc-1s1zksu-0 dzLiED sc-162ysh3-1 irFnoT', 'products')
+                    for product in products:
+                        small_image = product.find('img')['src']
+                        is_available = small_image[-4:] != ".svg"
+                        # if image is a svg, product is unavailable, so it's ignored
+                        if is_available:
+                            product_url = host + product.find('a')['href'][1:]
+                            image, subcategory, desc = self.scrape_product_page(product_url)
+                            name = product.find('h3', class_='sc-16zrtke-0 kGLNun sc-1yu46qn-9 feSnpB')
+                            attributes = [attribute.text for attribute in product.find_all('li', 'sc-vb9gxz-2 ZaTQK')]
+                            file.write(self.current_category + ";" + subcategory + ";" + name.text + ";" +
+                                       ';'.join(attributes) + ';' + small_image + ';' + image + ';' + "\n")
+                            file2.write(desc + "\n---\n")
 
         self.set_soup_from_page(self.get_url_without_php())
 
