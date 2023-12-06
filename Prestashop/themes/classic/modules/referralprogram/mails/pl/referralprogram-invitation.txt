@@ -1,0 +1,19 @@
+ 
+
+{shop_url}
+
+{firstname_friend} {lastname_friend}, Dołącz do nas!
+
+Twój znajomy {firstname} {lastname} chce cię polecić na [{shop_name}]({shop_url})!
+
+Mamy przyjemność zaoferować Ci kupon o wartości {discount}, który możesz wykorzystać przy następnym zamówieniu. Zostań poleconym i zdobądź kupon rabatowy o wartości {discount}!
+
+[Rejestracja jest bardzo prosta, wystarczy kliknąć tutaj!]({link})
+
+Podczas rejestracji nie zapomnij podać adresu e-mail polecającego znajomego: {email}.
+
+Pozdrawiam,
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

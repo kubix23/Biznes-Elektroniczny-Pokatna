@@ -1,0 +1,17 @@
+ 
+
+{shop_url}
+
+Cześć {firstname} {lastname},
+
+{product} jest prawie wyczerpany.
+
+W magazynie znajduje się teraz mniej niż {last_qty} produktów.
+
+Pozostały zapas: {qty}
+
+Aby uzupełnić zapasy, przejdź do sekcji Katalog > Magazyn na swoim koncie administracyjnym.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

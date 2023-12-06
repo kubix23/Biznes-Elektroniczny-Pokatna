@@ -1,0 +1,15 @@
+ 
+
+{shop_url}
+
+Cześć {firstname} {lastname},
+
+ID zamówienia {order_name} - Odcinek kredytowy
+
+Dla zamówienia o numerze {order_name} został wygenerowany odcinek kredytowy.
+
+Zapoznaj się z tym odcinkiem kredytowym i pobierz fakturę w naszym sklepie, przejdź do sekcji [Odcinki kredytowe]({history_url}) na swoim koncie klienta. 
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

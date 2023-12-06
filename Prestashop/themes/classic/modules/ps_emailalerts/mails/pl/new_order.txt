@@ -1,0 +1,43 @@
+ 
+
+{shop_url}
+
+Gratulacje!
+
+Nowe zamówienie zostało złożone w {shop_name} przez następującego klienta: {firstname} {lastname} ({email})
+
+Szczegóły zamówienia
+
+Zamówienie: {order_name} Złożono w dniu {date}
+
+Płatność: {payment}
+
+Referencja	Produkt	Cena jednostki	Ilość	Total price   {items}
+Produkty	{total_products}
+Zniżki	{total_discounts}
+Opakowanie prezentów	{total_wrapping}
+Wysyłka	{total_shipping}
+W tym całkowity podatek	{total_tax_paid}
+Zapłacono ogółem	{total_paid}
+
+ Przewoźnik
+
+Przewoźnik: {carrier}
+
+Płatność: {payment}
+
+Adres dostawy
+
+{delivery_block_html}
+
+Adres rozliczeniowy
+
+{invoice_block_html}
+
+Wiadomość od klienta:
+
+{message}
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

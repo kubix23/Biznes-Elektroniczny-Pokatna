@@ -2,11 +2,11 @@
 
 {shop_url}
 
-Hi,
+Cześć,
 
-Your stock cover is now less than the specified minimum of: {warning_coverage}
+Pokrycie zapasów jest teraz niższe niż określone minimum: {warning_coverage}
 
-Current stock cover: {current_coverage}
+Aktualny stan zapasów: {current_coverage}
 
 [{shop_name}]({shop_url})
 

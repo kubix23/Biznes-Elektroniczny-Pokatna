@@ -98,3 +98,9 @@ Powodem jest przerwanie inicjalizacji/instalacji Prestashop, może być to spowo
 Nie wykonano procesu związanego z pierwszą instalacją.
 4. Błąd z dostępem do /var/www/...  
 Nie wyłączono poprzednio otwrtych kontenerów poleceniem `docker-compose down`
+
+## Poczta serwisu
+
+email: pokatna.info@gmail.com
+hasło: hj123jb8)Ncgx
+app password: blxx soci oisy fyys
