@@ -74,6 +74,20 @@ class Tester:
             box.click()
         self.driver.find_element(By.CLASS_NAME, "form-control-submit").click()
 
+    def order(self):
+        self.driver.find_element(by=By.CLASS_NAME, value="shopping-cart").click()
+        self.driver.find_element(by=By.CLASS_NAME, value="btn-primary").click()
+        self.driver.find_element(By.NAME, "address1").send_keys("Nottingham NG7 2WS")
+        self.driver.find_element(By.NAME, "postcode").send_keys("12-345")
+        self.driver.find_element(By.NAME, "city").send_keys("Lenton")
+        self.driver.find_element(By.NAME, "confirm-addresses").click()
+        self.driver.find_element(By.NAME, "confirmDeliveryOption").click()
+        self.driver.find_element(By.NAME, "conditions_to_approve[terms-and-conditions]").click()
+        self.driver.find_element(by=By.ID, value="payment-confirmation").find_element(by=By.CLASS_NAME, value="btn-primary").click()
+
+    def check_status(self):
+        self.driver.find_element(By.CLASS_NAME, "account").click()
+        self.driver.find_element(By.CLASS_NAME, "link-item").click()
 
 
 
@@ -85,12 +99,15 @@ if __name__ == "__main__":
     # tester.add_to_cart_test("Płyty główne Socket AM4")
 
     # test b
-    #tester.search_test()
+    tester.search_test()
 
     # test c
     # tester.remove_3_from_cart()
 
-
     # test d
     tester.register()
+
+    # test e
+    tester.order()
+
     tester.driver.quit()
