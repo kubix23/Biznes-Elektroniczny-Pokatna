@@ -31,6 +31,8 @@ services:
             PS_INSTALL_AUTO: ${PS_INSTALL_AUTO:-1}
             PS_FOLDER_INSTALL: ${PS_FOLDER_INSTALL:-install-dev}
             PS_FOLDER_ADMIN: ${PS_FOLDER_ADMIN:-admin-dev}
+            PS_DOMAIN: ${PS_DOMAIN:-localhost:8080}
+            PS_DOMAIN_SSL: ${PS_DOMAIN_SSL:-localhost:443}
             DB_SERVER: mysql
             DB_PASSWD: ${DB_PASSWD:-prestashop}
             DB_NAME: ${DB_NAME:-prestashop}
@@ -40,6 +42,7 @@ services:
             ADMIN_MAIL: ${ADMIN_MAIL:-demo@prestashop.com}
             ADMIN_PASSWD: ${ADMIN_PASSWD:-12345678}
             PS_ENABLE_SSL: 1
+            PS_SSL_ENABLED_EVERYWHERE: 1
         ports:
             - 8080:80
             - 443:443
