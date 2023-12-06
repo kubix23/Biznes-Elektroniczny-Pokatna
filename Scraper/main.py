@@ -123,6 +123,8 @@ class Scraper:
             pass
         with open(self.productsFile, 'w', encoding="UTF-8"):
             pass
+        with open(self.descFile,'w', encoding="UTF-8"):
+            pass
 
     def scrape(self, url):
         self.set_soup_from_page(url)
