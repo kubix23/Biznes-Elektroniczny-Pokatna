@@ -72,7 +72,23 @@ class Scraper:
         image = span.find('img', class_='sc-1tblmgq-1 fatMoG')['src']
         page_title = self.product_page_scraper.soup.find('title')
         subcategory = page_title.text.split(" - ")[-3]
-        return image, subcategory
+        desc_section = self.product_page_scraper.soup.find('section',class_='product-description content product-page')
+        try:
+            desc_candidate_1 = desc_section.find_all('p')[1].text
+            desc_candidate_2 = desc_section.find_all('p')[2].text
+            desc_candidate_3 = desc_section.find_all('p')[3].text
+            desc = desc_candidate_1
+            if len(desc_candidate_2.strip()) > len(desc.strip()):
+                desc = desc_candidate_2
+            if len(desc_candidate_3.strip()) > len(desc.strip()):
+                desc = desc_candidate_3
+            short_desc = desc.split('.')[0]
+        except:
+            desc = "Brak opisu na stronie x-kom"
+            short_desc = desc
+        print(desc)
+        print("-------")
+        return image, subcategory, desc, short_desc
 
     def append_products_to_file(self):
         page_count = self.get_page_count()
@@ -89,11 +105,11 @@ class Scraper:
                     # if image is a svg, product is unavailable, so it's ignored
                     if is_available:
                         product_url = host + product.find('a')['href'][1:]
-                        image, subcategory = self.scrape_product_page(product_url)
+                        image, subcategory, desc, short_desc = self.scrape_product_page(product_url)
                         name = product.find('h3', class_='sc-16zrtke-0 kGLNun sc-1yu46qn-9 feSnpB')
                         attributes = [attribute.text for attribute in product.find_all('li', 'sc-vb9gxz-2 ZaTQK')]
                         file.write(self.current_category + ";" + subcategory + ";" + name.text + ";" +
-                                   ';'.join(attributes) + ';' + small_image + ';' + image + "\n")
+                                   ';'.join(attributes) + ';' + small_image + ';' + image + ';' + desc + ';' + short_desc + "\n")
 
         self.set_soup_from_page(self.get_url_without_php())
 
