@@ -75,12 +75,13 @@ def addProduct(product):
             "id": feature_id,
             "id_feature_value": value_id
         })
-    # product_schema["product"]["associations"]["product_features"]["product_feature"] = product_features
+    product_schema["product"]["associations"]["product_features"]["product_feature"] = product_features
     product_id = prestashop.add("products", product_schema)["prestashop"]["product"]["id"]
 
     schema_id = prestashop.search("stock_availables", options={"filter[id_product]": product_id})[0]
     stock_available = prestashop.get("stock_availables", resource_id=schema_id)
-    stock_available["stock_available"]["quantity"] = random.randint(0, 30)
+
+    stock_available["stock_available"]["quantity"] = random.randint(0, 10)
     stock_available["stock_available"]["depends_on_stock"] = 0
     prestashop.edit("stock_availables", stock_available)
 
