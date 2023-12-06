@@ -90,6 +90,7 @@ if __name__ == "__main__":
     # test c
     # tester.remove_3_from_cart()
 
+
     # test d
     tester.register()
     tester.driver.quit()
