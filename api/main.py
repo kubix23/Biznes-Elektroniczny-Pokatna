@@ -1,21 +1,51 @@
+import io
 import random
+import threading
+import urllib
 from multiprocessing.pool import ThreadPool
 
 from threading import Semaphore
+
+import requests
 from prestapyt import PrestaShopWebServiceDict
 import pandas as pd
 
 prestashop = PrestaShopWebServiceDict('http://localhost:8080/api', "U5R1TNFG9QL2ZF544CU69R5XP2TUKVJG")
 semaphore = Semaphore(1)
 
-def addCategory(name, parent=2):
+
+def addCategory(name, image, parent=2):
     category_schema = prestashop.get("categories", options={"schema": "blank"})
     category_schema["category"]["name"]["language"]["value"] = name
     category_schema["category"]["id_parent"] = parent
     category_schema["category"]["active"] = 1
     category_schema["category"]["description"]["language"]["value"] = f"Kategoria {name}"
     category_schema["category"]["link_rewrite"]["language"]["value"] = "test"
-    return prestashop.add("categories", category_schema)["prestashop"]["category"]["id"]
+    id = prestashop.add("categories", category_schema)["prestashop"]["category"]["id"]
+    addImageCategory(id, image)
+    return id
+
+
+def addImageProduct(product_id, url):
+    img = io.BytesIO(urllib.request.urlopen(url).read())
+    img.seek(0)
+    img.name = f"{threading.get_ident()}.png"
+    try:
+        prestashop.add(f"/images/products/{product_id}",
+                       files=[('image', f"{threading.get_ident()}.png", io.BufferedReader(img).read())])
+    except:
+        pass
+
+
+def addImageCategory(categoty_id, url):
+    img = io.BytesIO(urllib.request.urlopen(url).read())
+    img.seek(0)
+    img.name = f"{threading.get_ident()}.png"
+    try:
+        prestashop.add(f"/images/categories/{categoty_id}",
+                       files=[('image', f"{threading.get_ident()}.png", io.BufferedReader(img).read())])
+    except:
+        pass
 
 
 def addFeature(atribute):
@@ -46,7 +76,9 @@ def addFeature(atribute):
 
 
 def addProduct(product):
-    features = addFeature(product[3:6])
+    if product[7] is float:
+        return
+    features = addFeature(product[2:6])
     product_schema = prestashop.get("products", options={"schema": "blank"})
     category_id = prestashop.get("categories", options={
         "filter[name]": product[0]})["categories"]["category"]["attrs"]["id"]
@@ -62,6 +94,14 @@ def addProduct(product):
     product_schema["product"]["minimal_quantity"] = 1
     product_schema["product"]["show_price"] = 1
     product_schema["product"]["weight"] = random.randint(1, 60) / 10
+    product_schema["product"]["description"]["language"]["value"] = product[8]
+    product_schema["product"]["description_short"]["language"]["value"] = \
+        f"""
+            {product[2]}
+            {product[3]}
+            {product[4]}
+            {product[5]}
+        """
     product_schema["product"]["associations"]["categories"] = {
         "category": [
             {"id": 2},
@@ -77,6 +117,8 @@ def addProduct(product):
         })
     product_schema["product"]["associations"]["product_features"]["product_feature"] = product_features
     product_id = prestashop.add("products", product_schema)["prestashop"]["product"]["id"]
+
+    addImageProduct(product_id, product[7])
 
     schema_id = prestashop.search("stock_availables", options={"filter[id_product]": product_id})[0]
     stock_available = prestashop.get("stock_availables", resource_id=schema_id)
@@ -97,10 +139,13 @@ if ids:
 
 # add category
 csvfile = pd.read_csv('../ScraperResults/categoriesAndSubcategories.txt', names=range(10), sep=';')
+images = pd.read_csv('../ScraperResults/products.txt', header=None, sep=';')
+table = list(images[7][images[1].drop_duplicates().index])[::-1]
+
 for i in range(len(csvfile)):
-    id = addCategory(csvfile[0][i])
+    id = addCategory(csvfile[0][i], table[-1])
     for j in csvfile.T[i].dropna()[1:]:
-        addCategory(j, id)
+        addCategory(j, table.pop(), id)
 
 # remove products
 products = prestashop.get("products")["products"]
@@ -134,6 +179,9 @@ if features:
 pool = ThreadPool(20)
 csvfile = pd.read_csv('../ScraperResults/products.txt', header=None, sep=';')
 csvfile = csvfile.drop(0, axis=1)
+csvfile[9] = list(
+    map(lambda x: x.strip(), open('../ScraperResults/desc.txt', 'r', encoding="utf8").read().split("---"))
+)[0:len(csvfile[9])]
 pool.map(addProduct, csvfile.values)
 pool.close()
 pool.join()
