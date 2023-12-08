@@ -83,17 +83,26 @@ class Tester:
         self.driver.find_element(By.NAME, "confirm-addresses").click()
         self.driver.find_element(By.NAME, "confirmDeliveryOption").click()
         self.driver.find_element(By.NAME, "conditions_to_approve[terms-and-conditions]").click()
+        self.driver.find_element(By.NAME, "payment-option").click()
         self.driver.find_element(by=By.ID, value="payment-confirmation").find_element(by=By.CLASS_NAME, value="btn-primary").click()
 
     def check_status(self):
         self.driver.find_element(By.CLASS_NAME, "account").click()
-        self.driver.find_element(By.CLASS_NAME, "link-item").click()
+        self.driver.find_element(By.ID, "history-link").click()
+        self.driver.find_element(By.LINK_TEXT, "Szczegóły").click()
+        self.driver.find_element(By.PARTIAL_LINK_TEXT, "Pobierz").click()
 
 
 
 if __name__ == "__main__":
     host = 'http://localhost:8080/index.php'
     tester = Tester(host)
+
+    # https
+    tester.driver.implicitly_wait(7)
+    tester.driver.find_element(By.ID, "details-button")
+    tester.driver.find_element(By.ID, "proceed-link")
+
     # test a
     # tester.add_to_cart_test("Karty graficzne AMD")
     # tester.add_to_cart_test("Płyty główne Socket AM4")
@@ -109,5 +118,6 @@ if __name__ == "__main__":
 
     # test e
     tester.order()
+    tester.check_status()
 
     tester.driver.quit()
