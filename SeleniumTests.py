@@ -51,10 +51,17 @@ class Tester:
         for i in range(5):
             products = self.driver.find_elements(by=By.CLASS_NAME, value="product-title")
             products[i].click()
-            additional_product_amount = random.randint(0, 4)
-            for j in range(additional_product_amount):
-                self.driver.find_element(by=By.CLASS_NAME, value="touchspin-up").click()
-            self.driver.find_element(by=By.CLASS_NAME, value="add-to-cart").click()
+
+            try:
+                total_products = self.driver.find_element(by=By.CLASS_NAME, value="product-quantities").find_element(by=By.TAG_NAME, value="span").text.split()[0]
+            except:
+                total_products = 0
+
+            if total_products != 0:
+                additional_product_amount = min(4, random.randint(0, int(total_products) - 1))
+                for j in range(additional_product_amount):
+                    self.driver.find_element(by=By.CLASS_NAME, value="touchspin-up").click()
+                self.driver.find_element(by=By.CLASS_NAME, value="add-to-cart").click()
             self.driver.back()
 
     def register(self):
@@ -99,13 +106,13 @@ if __name__ == "__main__":
     tester = Tester(host)
 
     # https
-    tester.driver.implicitly_wait(7)
-    tester.driver.find_element(By.ID, "details-button")
-    tester.driver.find_element(By.ID, "proceed-link")
+    # tester.driver.implicitly_wait(7)
+    # tester.driver.find_element(By.ID, "details-button")
+    # tester.driver.find_element(By.ID, "proceed-link")
 
     # test a
-    # tester.add_to_cart_test("Karty graficzne AMD")
-    # tester.add_to_cart_test("Płyty główne Socket AM4")
+    tester.add_to_cart_test("Karty graficzne AMD")
+    tester.add_to_cart_test("Płyty główne Socket AM4")
 
     # test b
     tester.search_test()
