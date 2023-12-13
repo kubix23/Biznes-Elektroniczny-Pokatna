@@ -1,0 +1,13 @@
+ 
+
+{shop_url}
+
+Cześć {firstname} {lastname},
+
+{reply}
+
+Nie odpowiadaj bezpośrednio na tę wiadomość e-mail, ponieważ jej nie otrzymamy. Aby odpowiedzieć, kliknij poniższy link: {link}
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

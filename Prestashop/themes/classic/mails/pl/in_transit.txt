@@ -1,0 +1,21 @@
+ 
+
+{shop_url}
+
+Cześć {firstname} {lastname},
+
+{meta_products}
+
+ID zamówienia {order_name} - W drodze
+
+Twoje zamówienie o numerze {order_name} jest już w drodze.
+
+Przesyłkę można śledzić, korzystając z poniższego łącza: {followup}
+
+Po złożeniu zamówienia i pobraniu faktury w naszym sklepie przejdź do sekcji [Historia zamówień i szczegóły]({history_url}) na swoim koncie klienta.
+
+Jeśli masz konto gościa, możesz śledzić swoje zamówienie za pośrednictwem sekcji [ Śledzenie zamówień gości]({guest_tracking_url}) w naszym sklepie.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

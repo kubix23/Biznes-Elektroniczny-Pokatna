@@ -1,0 +1,15 @@
+ 
+
+{shop_url}
+
+Gratulacje!
+
+Twój polecony znajomy {sponsored_firstname} {sponsored_lastname} złożył swoje pierwsze zamówienie w [{shop_name}]({shop_url})!
+
+Mamy przyjemność zaoferować kupon o wartości {discount_display} (VOUCHER # {discount_name}) który można wykorzystać przy następnym zamówieniu.
+
+Pozdrawiam,
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

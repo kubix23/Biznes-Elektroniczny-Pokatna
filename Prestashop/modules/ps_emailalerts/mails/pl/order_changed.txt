@@ -1,0 +1,17 @@
+ 
+
+{shop_url}
+
+Cześć {firstname} {lastname},
+
+Zamówienie nr {order_name} - zmiana statusu
+
+Twoje zamówienie o numerze {order_name} ze sklepu {shop_name} zostało zmienione przez handlowca.
+
+Przejdź do strony "Twoje Konto" by dowiedzieć się więcej.
+
+Jeśli posiadasz konto gościa, możesz śledzić zamówienie poprzez [Śledzenie dla Gościa]({guest_tracking_url}) w naszym sklepie.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

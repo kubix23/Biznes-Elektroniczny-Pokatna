@@ -1,0 +1,45 @@
+ 
+
+{shop_url}
+
+Cześć {firstname} {lastname},
+
+Dziękujemy za zakupy w {shop_name}!
+
+Szczegóły zamówienia
+
+Zamówienie: {order_name} Złożone {date}
+
+Płatność:: {payment}
+
+Referencja	Produkt	Cena jednostki	Ilość	Cena całkowita  {products_txt} {discounts_txt}
+Produkty	{total_products}
+Zniżki	{total_discounts}
+Opakowanie prezentów	{total_wrapping}
+Wysyłka	{total_shipping}
+W tym całkowity podatek	{total_tax_paid}
+Zapłacono ogółem	{total_paid}
+
+Wysyłka
+
+Przewoźnik: {carrier}
+
+Płatność: {payment}
+
+Opakowania z recyklingu: {recycled_packaging_label}
+
+Adres dostawy
+
+{delivery_block_txt}
+
+Adres rozliczeniowy
+
+{invoice_block_txt}
+
+Po złożeniu zamówienia i pobraniu faktury w naszym sklepie przejdź do sekcji [Historia zamówień i szczegóły]({history_url}) na swoim koncie klienta.
+
+Jeśli masz konto gościa, możesz śledzić swoje zamówienie za pośrednictwem sekcji [Śledzenie zamówień gości]({guest_tracking_url}) w naszym sklepie.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

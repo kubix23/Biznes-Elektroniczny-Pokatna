@@ -1,0 +1,31 @@
+ 
+
+{shop_url}
+
+Cześć,
+
+Otrzymano nowe żądanie zwrotu dla {shop_name}.
+
+Szczegóły zwrotu
+
+Zamówienie: {order_name} Złożono w dniu {date}
+
+Klient: {firstname} {lastname}, ({email})
+
+Referencje	Produkt	Ilość   {items}
+
+Adres dostawy
+
+{delivery_block_html}
+
+Adres rozliczeniowy
+
+{invoice_block_html}
+
+Wiadomość od klienta:
+
+{message}
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

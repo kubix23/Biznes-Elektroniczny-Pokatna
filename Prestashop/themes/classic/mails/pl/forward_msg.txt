@@ -1,0 +1,17 @@
+ 
+
+{shop_url}
+
+Cześć {firstname} {lastname},
+
+Obsługa klienta - Przekazano dyskusję
+
+{employee} chciał przekazać ci tę dyskusję.
+
+Historia dyskusji: {messages}
+
+{employee} dodał {comment}
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

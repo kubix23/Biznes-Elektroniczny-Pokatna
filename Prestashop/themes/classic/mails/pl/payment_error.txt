@@ -1,0 +1,19 @@
+ 
+
+{shop_url}
+
+Cześć {firstname} {lastname},
+
+ID zamówienia {order_name} - Błąd płatności
+
+Napotkaliśmy błąd podczas przetwarzania płatności za zamówienie o numerze {order_name} z {shop_name}. Prosimy o jak najszybszy kontakt.
+
+Możesz spodziewać się dostawy natychmiast po otrzymaniu płatności.
+
+Po złożeniu zamówienia i pobraniu faktury w naszym sklepie przejdź do sekcji [Historia zamówień i szczegóły]({history_url}) na swoim koncie klienta.
+
+Jeśli masz konto gościa, możesz śledzić swoje zamówienie za pośrednictwem sekcji [Śledzenie zamówień gości]({guest_tracking_url}) w naszym sklepie.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

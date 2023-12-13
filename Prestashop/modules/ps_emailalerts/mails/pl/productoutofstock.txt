@@ -1,0 +1,17 @@
+ 
+
+{shop_url}
+
+Cześć,
+
+{product} jest już prawie niedostępny.
+
+Zostało mniej niż {last_qty} sztuk w magazynie.
+
+Pozostałych sztuk: {qty}
+
+Uzupełnij swój inwentarz, przejdź do Katalog > Magazyny by zarządzić swoim magazynem.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)
