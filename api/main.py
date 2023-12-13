@@ -27,21 +27,21 @@ def addCategory(name, image, parent=2):
 
 
 def addImageProduct(product_id, url):
-    img = io.BytesIO(urllib.request.urlopen(url).read())
-    img.seek(0)
-    img.name = f"{threading.get_ident()}.png"
     try:
+        img = io.BytesIO(urllib.request.urlopen(url).read())
+        img.seek(0)
+        img.name = f"{threading.get_ident()}.png"
         prestashop.add(f"/images/products/{product_id}",
-                       files=[('image', f"{threading.get_ident()}.png", io.BufferedReader(img).read())])
+                   files=[('image', f"{threading.get_ident()}.png", io.BufferedReader(img).read())])
     except:
         pass
 
 
 def addImageCategory(categoty_id, url):
-    img = io.BytesIO(urllib.request.urlopen(url).read())
-    img.seek(0)
-    img.name = f"{threading.get_ident()}.png"
     try:
+        img = io.BytesIO(urllib.request.urlopen(url).read())
+        img.seek(0)
+        img.name = f"{threading.get_ident()}.png"
         prestashop.add(f"/images/categories/{categoty_id}",
                        files=[('image', f"{threading.get_ident()}.png", io.BufferedReader(img).read())])
     except:
@@ -64,11 +64,15 @@ def addFeature(atribute):
             feature_schema["product_feature"]["name"]["language"]["value"] = name
             feature_id = prestashop.add("product_features", feature_schema)["prestashop"]["product_feature"]["id"]
 
-        feature_values_schema["product_feature_value"]["id_feature"] = feature_id
-        feature_values_schema["product_feature_value"]["value"]["language"]["value"] = value
-        feature_values_schema["product_feature_value"]["custom"] = 0
-        feature_values_id = \
-            prestashop.add("product_feature_values", feature_values_schema)["prestashop"]["product_feature_value"]["id"]
+        feature_values = prestashop.get("product_feature_values", options={"filter[value]": value})
+        if feature_values["product_feature_values"]:
+            feature_values_id = feature_values["product_feature_values"]["product_feature_value"]["attrs"]["id"]
+        else:
+            feature_values_schema["product_feature_value"]["id_feature"] = feature_id
+            feature_values_schema["product_feature_value"]["value"]["language"]["value"] = value
+            feature_values_schema["product_feature_value"]["custom"] = 0
+            feature_values_id = \
+                prestashop.add("product_feature_values", feature_values_schema)["prestashop"]["product_feature_value"]["id"]
         res.append((feature_id, feature_values_id))
         semaphore.release()
 
@@ -140,7 +144,8 @@ if ids:
 # add category
 csvfile = pd.read_csv('../ScraperResults/categoriesAndSubcategories.txt', names=range(10), sep=';')
 images = pd.read_csv('../ScraperResults/products.txt', header=None, sep=';')
-table = list(images[7][images[1].drop_duplicates().index])[::-1]
+temp = images[1].drop_duplicates().index
+table = list(images[7][temp])[::-1]
 
 for i in range(len(csvfile)):
     id = addCategory(csvfile[0][i], table[-1])
