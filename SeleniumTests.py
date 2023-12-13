@@ -1,4 +1,5 @@
 import random
+import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -90,7 +91,9 @@ class Tester:
         self.driver.find_element(By.NAME, "confirm-addresses").click()
         self.driver.find_element(By.NAME, "confirmDeliveryOption").click()
         self.driver.find_element(By.NAME, "conditions_to_approve[terms-and-conditions]").click()
-        self.driver.find_element(By.NAME, "payment-option").click()
+
+        # self.driver.find_element(By.NAME, "payment-option").click()
+        # self.driver.find_element(By.NAME, "payment-option").click()
         self.driver.find_element(by=By.ID, value="payment-confirmation").find_element(by=By.CLASS_NAME, value="btn-primary").click()
 
     def check_status(self):
@@ -105,11 +108,6 @@ if __name__ == "__main__":
     host = 'http://localhost:8080/index.php'
     tester = Tester(host)
 
-    # https
-    # tester.driver.implicitly_wait(7)
-    # tester.driver.find_element(By.ID, "details-button")
-    # tester.driver.find_element(By.ID, "proceed-link")
-
     # test a
     tester.add_to_cart_test("Karty graficzne AMD")
     tester.add_to_cart_test("Płyty główne Socket AM4")
@@ -118,7 +116,7 @@ if __name__ == "__main__":
     tester.search_test()
 
     # test c
-    # tester.remove_3_from_cart()
+    tester.remove_3_from_cart()
 
     # test d
     tester.register()
